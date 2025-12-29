@@ -1,12 +1,13 @@
 import { paths } from 'src/routes/paths';
-
 import { CONFIG } from 'src/config-global';
 
 import { SvgColor } from 'src/components/svg-color';
 
 // ----------------------------------------------------------------------
 
-const icon = (name) => <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/${name}.svg`} />;
+const icon = (name) => (
+  <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/${name}.svg`} />
+);
 
 const ICONS = {
   job: icon('ic-job'),
@@ -34,38 +35,22 @@ const ICONS = {
   ecommerce: icon('ic-ecommerce'),
   analytics: icon('ic-analytics'),
   dashboard: icon('ic-dashboard'),
-  parameter: icon('ic-parameter'),
+  category: icon('ic-folder'), // Utiliser l'icône folder pour catégories
 };
 
 // ----------------------------------------------------------------------
 
 export const navData = [
   /**
-   * Overview
+   * Dashboard
    */
   {
-    subheader: 'Overview 6.0.0',
-    items: [
-      { title: 'One', path: paths.dashboard.root, icon: ICONS.dashboard },
-      { title: 'Two', path: paths.dashboard.two, icon: ICONS.ecommerce },
-      { title: 'Three', path: paths.dashboard.three, icon: ICONS.analytics },
-    ],
-  },
-  /**
-   * Management
-   */
-  {
-    subheader: 'Management',
+    subheader: 'Dashboard',
     items: [
       {
-        title: 'Group',
-        path: paths.dashboard.group.root,
-        icon: ICONS.user,
-        children: [
-          { title: 'Four', path: paths.dashboard.group.root },
-          { title: 'Five', path: paths.dashboard.group.five },
-          { title: 'Six', path: paths.dashboard.group.six },
-        ],
+        title: 'Catégories',
+        path: paths.dashboard.categories,
+        icon: ICONS.category,
       },
     ],
   },

@@ -38,8 +38,12 @@ export const SignUpSchema = zod.object({
   password: zod
     .string()
     .min(1, { message: 'Password is required!' })
-    .min(6, { message: 'Password must be at least 6 characters!' }),
-});
+    .min(8, { message: 'Password must be at least 8 characters!' }),
+     password_confirmation: zod.string().min(8,{ message: 'Confirm password must be at least 8 characters!' }),
+}) .refine((data) => data.password === data.password_confirmation, {
+    message: 'Passwords do not match',
+    path: ['password_confirmation'],
+  });
 
 // ----------------------------------------------------------------------
 
@@ -56,7 +60,8 @@ export function JwtSignUpView() {
     firstName: 'Hello',
     lastName: 'Friend',
     email: 'hello@gmail.com',
-    password: '@demo1',
+    password: '@demo123',
+     password_confirmation: '@demo123',
   };
 
   const methods = useForm({
@@ -70,10 +75,12 @@ export function JwtSignUpView() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+    console.log('FORM DATA 👉', data); 
     try {
       await signUp({
         email: data.email,
         password: data.password,
+        password_confirmation: data.password_confirmation,
         firstName: data.firstName,
         lastName: data.lastName,
       });
@@ -98,7 +105,7 @@ export function JwtSignUpView() {
       <Field.Text
         name="password"
         label="Password"
-        placeholder="6+ characters"
+        placeholder="8+ characters"
         type={password.value ? 'text' : 'password'}
         InputLabelProps={{ shrink: true }}
         InputProps={{
@@ -111,6 +118,13 @@ export function JwtSignUpView() {
           ),
         }}
       />
+      <Field.Text
+  name="password_confirmation"
+  label="Confirm password"
+  type="password"
+  InputLabelProps={{ shrink: true }}
+/>
+
 
       <LoadingButton
         fullWidth

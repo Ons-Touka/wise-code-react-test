@@ -1,18 +1,14 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-import { useRouter } from 'src/routes/hooks';
-
-import { CONFIG } from 'src/config-global';
-
-// ----------------------------------------------------------------------
-
-export default function Page() {
+export default function HomePage() {
   const router = useRouter();
 
   useEffect(() => {
-    router.push(CONFIG.auth.redirectPath);
+    // Redirection directe vers les catégories
+    router.push('/dashboard/categories');
   }, [router]);
 
   return null;
